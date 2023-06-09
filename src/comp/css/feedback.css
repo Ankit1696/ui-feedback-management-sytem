@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.main-table{
+   
+    display: flex;
+    margin-top: 4%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+table{
+    background-color: #fffffff1;
+    border: solid thin;
+    width: 80%;
+    height: auto;
+}
+th{
+}
+td{
+    
+}
