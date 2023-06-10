@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import axios from 'axios';
+import './css/feedback.css'
 
 const FeedbackList = () => {
 
@@ -9,9 +10,9 @@ const FeedbackList = () => {
         fetchFeedbacks();
     }, []);
     
-    const fetchFeedbacks = async (id) =>{
+    const fetchFeedbacks = () =>{
         try{
-            await axios.get("/feedback")
+            return  axios.get("http://localhost:8080/feedback/all").then((fedback)=> setFeedbacks(fedback.data))
         }
         catch(error){
             console.error("Error fetching feedback", error);
@@ -20,7 +21,7 @@ const FeedbackList = () => {
 
     const deleteFeedback = async (id) => {
         try {
-          await axios.delete(`/feedback/${id}`);
+          await axios.delete(`/feedback/delete/${id}`);
           fetchFeedbacks();
           console.log('Feedback deleted successfully');
         } catch (error) {
@@ -31,14 +32,27 @@ const FeedbackList = () => {
 
       return (
         <div>
-          <h2>Feedback List</h2>
-          {feedbacks.map((feedback) => (
-            <div key={feedback.id}>
-              <h4>{feedback.title}</h4>
-              <p>{feedback.description}</p>
-              <button onClick={() => deleteFeedback(feedback.id)}>Delete</button>
-            </div>
-          ))}
+          
+
+          <div className='main-table'>
+            <table >
+            <tr>
+              <th>Title</th>
+              <th>Descriptions</th>
+            </tr>
+              
+            {feedbacks.map((val, key,count) => {
+              count+=1
+                    return (
+                        <tr key={key}>
+                            <td>{val.title}</td>
+                            <td>{val.description}</td>
+                        </tr>
+                    )
+                })}
+            
+            </table>
+          </div>
         </div>
       );
 }
